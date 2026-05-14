@@ -1,0 +1,20 @@
+const { contextBridge, ipcRenderer } = require('electron');
+contextBridge.exposeInMainWorld('api', {
+  minimize:     () => ipcRenderer.send('win-minimize'),
+  maximize:     () => ipcRenderer.send('win-maximize'),
+  close:        () => ipcRenderer.send('win-close'),
+  getConfig:    () => ipcRenderer.invoke('get-config'),
+  saveConfig:   (p) => ipcRenderer.invoke('save-config', p),
+  browseVideo:  () => ipcRenderer.invoke('browse-video'),
+  browseYtdlp:  () => ipcRenderer.invoke('browse-ytdlp'),
+  checkPath:    (p) => ipcRenderer.invoke('check-path', p),
+  openExternal: (u) => ipcRenderer.invoke('open-external', u),
+  resolveUrl:   (o) => ipcRenderer.invoke('resolve-url', o),
+  ytdlpVersion: () => ipcRenderer.invoke('ytdlp-version'),
+  addHistory:    (i) => ipcRenderer.invoke('add-history', i),
+  getHistory:    () => ipcRenderer.invoke('get-history'),
+  clearHistory:  () => ipcRenderer.invoke('clear-history'),
+  removeHistory: (u) => ipcRenderer.invoke('remove-history', u),
+  savePlaylist:  (l) => ipcRenderer.invoke('save-playlist', l),
+  getPlaylist:   () => ipcRenderer.invoke('get-playlist'),
+});
